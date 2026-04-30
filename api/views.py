@@ -4,8 +4,8 @@ from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
 from django.db.models import Sum
-from .models import Transaction
-from .serializers import UserSerializer, RegisterSerializer, TransactionSerializer
+from api.models import Transaction
+from api.serializer import UserSerializer, RegisterSerializer, TransactionSerializer
 
 class RegisterView(APIView):
     permission_classes = [permissions.AllowAny]
