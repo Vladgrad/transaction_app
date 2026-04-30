@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./back
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./back:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DEBUG=1
+    networks:
+      - app-network
+
+  frontend:
+    build: ./vibe_frontend_rev2-master
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./vibe_frontend_rev2-master:/vite
+      - /vite/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8000/api
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
