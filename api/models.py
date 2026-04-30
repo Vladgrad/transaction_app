@@ -19,3 +19,14 @@ class User(AbstractUser):
               return self.email
        
        
+class Transaction(models.Model):
+       id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
+       user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='transactions')
+       type = models.CharField(max_length=10)
+       amount = models.DecimalField(max_digits=15, decimal_places=2)
+       currency = models.CharField(max_length=3, default='RUB')
+       category = models.CharField(max_length=100)
+       comment = models.TextField(blank=True, null=True)
+       occurredAt = models.DateTimeField()
+       createdAt = models.DateTimeField(auto_now_add=True)
+       updatedAt = models.DateTimeField(auto_now=True)
